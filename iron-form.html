@@ -340,7 +340,7 @@ attach it to the `<iron-form>`:
           this.$.helper.submit();
           this.fire('iron-form-submit');
         } else {
-          this._makeAjaxRequest(json);
+          return this._makeAjaxRequest(json);
         }
       },
 
@@ -440,8 +440,9 @@ attach it to the `<iron-form>`:
         // Allow for a presubmit hook
         var event = this.fire('iron-form-presubmit', {}, {cancelable: true});
         if (!event.defaultPrevented) {
-          this.request.generateRequest();
+          var r = this.request.generateRequest();
           this.fire('iron-form-submit', json);
+          return r;
         }
       },
 
